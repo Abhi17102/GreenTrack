@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenTrack – Track. Understand. Reduce.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2E7D32;
+            --gradient-start: #A5D6A7;
+            --gradient-end: #E8F5E9;
+            --white: #FFFFFF;
+            --text-dark: #333333;
+            --text-gray: #666666;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            padding: 6rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(46, 125, 50, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .hero .tagline {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(46, 125, 50, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Problem Section */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        /* Solution Section */
+        .solution {
+            background: linear-gradient(to bottom, var(--gradient-end), var(--white));
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        /* Prototype Section */
+        .prototype-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .prototype-card {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .prototype-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .prototype-screen {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+        }
+
+        .prototype-info {
+            padding: 1.5rem;
+        }
+
+        .prototype-info h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .prototype-info p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        /* Technology Section */
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .tech-badge {
+            background: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            font-weight: 500;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Innovation Section */
+        .innovation-list {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .innovation-item {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .innovation-item:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .innovation-bullet {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .innovation-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: linear-gradient(to bottom, var(--white), var(--gradient-end));
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid var(--primary);
+            transform: scale(1.05);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-card .period {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--gradient-end);
+            color: var(--text-gray);
+        }
+
+        .pricing-features li::before {
+            content: '✓ ';
+            color: var(--primary);
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        /* Impact Section */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .impact-card {
+            background: linear-gradient(135deg, var(--primary), #1B5E20);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .impact-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Roadmap Section */
+        .roadmap {
+            background: linear-gradient(to bottom, var(--gradient-end), var(--white));
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border: 4px solid var(--white);
+            border-radius: 50%;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-phase {
+            display: inline-block;
+            background: var(--gradient-start);
+            color: var(--primary);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .team-info {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .team-info h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-info p {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--gradient-end);
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .error-message {
+            color: #D32F2F;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .success-message {
+            background: #4CAF50;
+            color: var(--white);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        /* Calculator Section */
+        .calculator {
+            max-width: 600px;
+            margin: 3rem auto 0;
+            background: var(--gradient-end);
+            padding: 2rem;
+            border-radius: 16px;
+        }
+
+        .calculator h3 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .calculator-input {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .calculator-input input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .calculator-result {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .calculator-result .co2-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0.5rem 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        footer a {
+            color: var(--gradient-start);
+            text-decoration: none;
+        }
+
+        /* Fade In Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: var(--white);
+                width: 100%;
+                text-align: center;
+                transition: left 0.3s ease;
+                box-shadow: var(--shadow);
+                padding: 2rem 0;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.3rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                flex-direction: column;
+            }
+
+            .timeline-dot {
+                left: 0;
+                transform: translateX(-50%);
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .calculator-input {
+                flex-direction: column;
+            }
+
+            .contact-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                🌱 GreenTrack
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#problem" class="nav-link">Problem</a></li>
+                <li><a href="#solution" class="nav-link">Solution</a></li>
+                <li><a href="#prototype" class="nav-link">Prototype</a></li>
+                <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>GreenTrack</h1>
+            <div class="tagline">Track. Understand. Reduce.</div>
+            <p>AI-powered personal carbon footprint tracking that helps you understand and reduce your environmental impact, one action at a time.</p>
+            <div class="cta-buttons">
+                <a href="#prototype" class="btn btn-primary">View Prototype</a>
+                <a href="#calculator" class="btn btn-secondary">Try Calculator</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem">
+        <div class="container">
+            <h2 class="section-title">The Problem</h2>
+            <p class="section-subtitle">Climate change demands action, but individual impact remains invisible</p>
+            <div class="problem-grid">
+                <div class="card fade-in">
+                    <div class="card-icon">🌡️</div>
+                    <h3>Climate Crisis Accelerating</h3>
+                    <p>Global temperatures rising at unprecedented rates, requiring immediate individual and collective action to prevent irreversible damage.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">❓</div>
+                    <h3>Invisible Emissions</h3>
+                    <p>Most people have no idea how their daily activities contribute to carbon emissions, making it impossible to make informed sustainable choices.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">📊</div>
+                    <h3>No Simple Tracking</h3>
+                    <p>Existing carbon calculators are complex, time-consuming, and fail to provide actionable insights for behavioral change.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution" id="solution">
+        <div class="container">
+            <h2 class="section-title">Our Solution</h2>
+            <p class="section-subtitle">Intelligent, effortless carbon tracking that drives real change</p>
+            <div class="feature-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Real-Time Tracking</h3>
+                    <p>Log activities instantly and see your carbon footprint update in real-time with intelligent categorization.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Suggestions</h3>
+                    <p>Personalized recommendations powered by machine learning to help you make sustainable choices effortlessly.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📈</div>
+                    <h3>Visual Dashboards</h3>
+                    <p>Beautiful, intuitive charts and graphs that make understanding your environmental impact simple and engaging.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🎮</div>
+                    <h3>Gamified Goals</h3>
+                    <p>Set challenges, earn achievements, and compete with friends to make sustainability fun and rewarding.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prototype Section -->
+    <section id="prototype">
+        <div class="container">
+            <h2 class="section-title">App Prototype</h2>
+            <p class="section-subtitle">Experience the future of personal sustainability</p>
+            <div class="prototype-grid">
+                <div class="prototype-card fade-in">
+                    <div class="prototype-screen">👋</div>
+                    <div class="prototype-info">
+                        <h3>Onboarding</h3>
+                        <p>Simple setup that learns your lifestyle and establishes your baseline carbon footprint.</p>
+                    </div>
+                </div>
+                <div class="prototype-card fade-in">
+                    <div class="prototype-screen">✏️</div>
+                    <div class="prototype-info">
+                        <h3>Activity Input</h3>
+                        <p>Quick-add interface for logging transportation, food, energy, and consumption activities.</p>
+                    </div>
+                </div>
+                <div class="prototype-card fade-in">
+                    <div class="prototype-screen">📊</div>
+                    <div class="prototype-info">
+                        <h3>Dashboard</h3>
+                        <p>Comprehensive overview of your carbon footprint with trends, comparisons, and insights.</p>
+                    </div>
+                </div>
+                <div class="prototype-card fade-in">
+                    <div class="prototype-screen">💡</div>
+                    <div class="prototype-info">
+                        <h3>AI Suggestions</h3>
+                        <p>Smart recommendations tailored to your habits for maximum impact with minimum effort.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="technology">
+        <div class="container">
+            <h2 class="section-title">Technology Stack</h2>
+            <p class="section-subtitle">Built with modern, scalable technologies</p>
+            <div class="tech-badges fade-in">
+                <div class="tech-badge">Flutter / React Native</div>
+                <div class="tech-badge">Firebase Auth</div>
+                <div class="tech-badge">Firestore Database</div>
+                <div class="tech-badge">Chart.js</div>
+                <div class="tech-badge">JavaScript AI Engine</div>
+                <div class="tech-badge">Cloud Functions</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Innovation Section -->
+    <section id="innovation">
+        <div class="container">
+            <h2 class="section-title">Innovation</h2>
+            <p class="section-subtitle">What makes GreenTrack different</p>
+            <div class="innovation-list">
+                <div class="innovation-item fade-in">
+                    <div class="innovation-bullet">🎯</div>
+                    <div>
+                        <h3>Personalized Carbon Scoring</h3>
+                        <p>Proprietary algorithm that calculates impact based on your specific location, lifestyle, and circumstances.</p>
+                    </div>
+                </div>
+                <div class="innovation-item fade-in">
+                    <div class="innovation-bullet">🧠</div>
+                    <div>
+                        <h3>Behavior-Based AI</h3>
+                        <p>Machine learning that adapts to your patterns and provides increasingly accurate predictions and suggestions.</p>
+                    </div>
+                </div>
+                <div class="innovation-item fade-in">
+                    <div class="innovation-bullet">🏆</div>
+                    <div>
+                        <h3>Community Eco-Challenges</h3>
+                        <p>Social features that create accountability and motivation through friendly competition and shared goals.</p>
+                    </div>
+                </div>
+                <div class="innovation-item fade-in">
+                    <div class="innovation-bullet">🔌</div>
+                    <div>
+                        <h3>IoT Integration Ready</h3>
+                        <p>Architecture designed for future integration with smart home devices and wearables for automated tracking.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Pricing Plans</h2>
+            <p class="section-subtitle">Choose the plan that fits your sustainability journey</p>
+            <div class="pricing-grid">
+                <div class="pricing-card fade-in">
+                    <h3>Free</h3>
+                    <div class="price">$0</div>
+                    <div class="period">forever</div>
+                    <ul class="pricing-features">
+                        <li>Basic activity tracking</li>
+                        <li>Weekly reports</li>
+                        <li>Community access</li>
+                        <li>Mobile app</li>
+                    </ul>
+                    <button class="btn btn-secondary">Get Started</button>
+                </div>
+                <div class="pricing-card featured fade-in">
+                    <div class="pricing-badge">Most Popular</div>
+                    <h3>Pro</h3>
+                    <div class="price">$9</div>
+                    <div class="period">per month</div>
+                    <ul class="pricing-features">
+                        <li>Advanced AI insights</li>
+                        <li>Daily tracking & alerts</li>
+                        <li>Custom challenges</li>
+                        <li>Detailed analytics</li>
+                        <li>Priority support</li>
+                        <li>Carbon offset marketplace</li>
+                    </ul>
+                    <button class="btn btn-primary">Start Free Trial</button>
+                </div>
+                <div class="pricing-card fade-in">
+                    <h3>Enterprise</h3>
+                    <div class="price">Custom</div>
+                    <div class="period">contact us</div>
+                    <ul class="pricing-features">
+                        <li>Team dashboards</li>
+                        <li>API access</li>
+                        <li>Custom integrations</li>
+                        <li>White-label options</li>
+                        <li>Dedicated support</li>
+                        <li>ESG reporting</li>
+                    </ul>
+                    <button class="btn btn-secondary">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact">
+        <div class="container">
+            <h2 class="section-title">Societal Impact</h2>
+            <p class="section-subtitle">Driving global change through individual action</p>
+            <div class="impact-grid">
+                <div class="impact-card fade-in">
+                    <h3>🎯 SDG 13: Climate Action</h3>
+                    <p>Directly supports UN Sustainable Development Goal 13 by empowering individuals to take concrete climate action.</p>
+                </div>
+                <div class="impact-card fade-in">
+                    <h3>📚 Educational Awareness</h3>
+                    <p>Increases understanding of carbon emissions and climate science through accessible, real-world data.</p>
+                </div>
+                <div class="impact-card fade-in">
+                    <h3>🏫 University Scalability</h3>
+                    <p>Designed for deployment across educational institutions to create campus-wide sustainability movements.</p>
+                </div>
+                <div class="impact-card fade-in">
+                    <h3>🏢 Corporate Integration</h3>
+                    <p>Enterprise features enable organizations to track and reduce their collective carbon footprint systematically.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section class="roadmap" id="roadmap">
+        <div class="container">
+            <h2 class="section-title">Future Roadmap</h2>
+            <p class="section-subtitle">Our vision for the future of carbon tracking</p>
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-phase">Q2 2026</span>
+                        <h3>GPS-Based Tracking</h3>
+                        <p>Automatic activity detection using location services to eliminate manual entry for transportation activities.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-phase">Q3 2026</span>
+                        <h3>Smart Meter Integration</h3>
+                        <p>Direct connection to home energy systems for real-time electricity and gas consumption tracking.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-phase">Q4 2026</span>
+                        <h3>Predictive AI Engine</h3>
+                        <p>Advanced machine learning models that forecast future emissions and suggest proactive interventions.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-phase">Q1 2027</span>
+                        <h3>ESG Reporting Dashboard</h3>
+                        <p>Enterprise-grade reporting tools for organizations to meet sustainability disclosure requirements.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="team-info">
+                    <h3>Built for Tomorrow</h3>
+                    <p><strong>Hackathon Project:</strong> GreenTrack</p>
+                    <p><strong>Vision:</strong> Empowering individuals to become climate champions through technology</p>
+                    <p><strong>Mission:</strong> Make carbon tracking as simple as checking your steps</p>
+                </div>
+                <h2 class="section-title">Get in Touch</h2>
+                <p class="section-subtitle">Interested in partnerships, investment, or collaboration? Reach out!</p>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                        <div class="error-message" id="nameError">Please enter your name</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                        <div class="error-message" id="emailError">Please enter a valid email</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" required></textarea>
+                        <div class="error-message" id="messageError">Please enter a message</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    <div class="success-message" id="successMessage">
+                        Thank you! Your message has been sent successfully.
+                    </div>
+                </form>
+
+                <!-- Carbon Calculator Demo -->
+                <div class="calculator" id="calculator">
+                    <h3>🧮 Quick Carbon Calculator</h3>
+                    <p style="text-align: center; color: var(--text-gray); margin-bottom: 1.5rem;">
+                        Calculate your transportation emissions
+                    </p>
+                    <div class="calculator-input">
+                        <input type="number" id="distance" placeholder="Distance (km)" min="0">
+                        <select id="transport" style="padding: 1rem; border: 2px solid var(--gradient-end); border-radius: 12px; font-family: 'Poppins', sans-serif; font-size: 1rem;">
+                            <option value="0.21">Car (Petrol)</option>
+                            <option value="0.16">Car (Electric)</option>
+                            <option value="0.10">Bus</option>
+                            <option value="0.04">Train</option>
+                            <option value="0.25">Flight</option>
+                            <option value="0">Bicycle</option>
+                        </select>
+                    </div>
+                    <button onclick="calculateCarbon()" class="btn btn-primary" style="width: 100%;">Calculate</button>
+                    <div class="calculator-result" id="calculatorResult">
+                        <p style="color: var(--text-gray);">Your carbon footprint:</p>
+                        <div class="co2-value" id="co2Value">0 kg</div>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">CO₂ equivalent</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 GreenTrack. Built with 💚 for a sustainable future.</p>
+        <p>A hackathon project demonstrating the power of technology in climate action.</p>
+    </footer>
+
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Active Navigation Highlight
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href').slice(1) === current) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll Animation with Intersection Observer
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        fadeElements.forEach(element => {
+            fadeObserver.observe(element);
+        });
+
+        // Carbon Calculator
+        function calculateCarbon() {
+            const distance = parseFloat(document.getElementById('distance').value);
+            const emissionFactor = parseFloat(document.getElementById('transport').value);
+            
+            if (!distance || distance <= 0) {
+                alert('Please enter a valid distance');
+                return;
+            }
+
+            const co2 = (distance * emissionFactor).toFixed(2);
+            document.getElementById('co2Value').textContent = `${co2} kg`;
+            document.getElementById('calculatorResult').style.display = 'block';
+        }
+
+        // Contact Form Validation
+        const contactForm = document.getElementById('contactForm');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            let isValid = true;
+            
+            // Name validation
+            const name = document.getElementById('name');
+            const nameError = document.getElementById('nameError');
+            if (name.value.trim() === '' || name.value.length < 2) {
+                nameError.style.display = 'block';
+                isValid = false;
+            } else {
+                nameError.style.display = 'none';
+            }
+            
+            // Email validation
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value)) {
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+            
+            // Message validation
+            const message = document.getElementById('message');
+            const messageError = document.getElementById('messageError');
+            if (message.value.trim() === '' || message.value.length < 10) {
+                messageError.textContent = 'Please enter a message (at least 10 characters)';
+                messageError.style.display = 'block';
+                isValid = false;
+            } else {
+                messageError.style.display = 'none';
+            }
+            
+            if (isValid) {
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+                contactForm.reset();
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    document.getElementById('successMessage').style.display = 'none';
+                }, 5000);
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
